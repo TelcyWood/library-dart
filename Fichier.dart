@@ -1,70 +1,70 @@
 class Library {
   // Attributs privés
-  String _nom;
-  List<String> _livres;
-  int _capaciteMax;
+  String _name;
+  List<String> _books;
+  int _maxCapacity;
 
   // Constructeur principal
-  Library(String nom, List<String> livres, int capaciteMax)
-      : _nom = nom,
-        _livres = livres,
-        _capaciteMax = capaciteMax {
-    if (capaciteMax <= 0) {
-      throw ArgumentError("La capacité maximale doit être strictement supérieure à 0.");
+  Library(String name, List<String> books, int maxCapacity)
+      : _name = name,
+        _books = books,
+        _maxCapacity = maxCapacity {
+    if (maxCapacity <= 0) {
+      throw ArgumentError("La capacité maximale doit être > 0");
     }
   }
 
   // Constructeur nommé
   Library.empty()
-      : _nom = "Bibliothèque vide",
-        _livres = [],
-        _capaciteMax = 10;
+      : _name = "Bibliothèque vide",
+        _books = [],
+        _maxCapacity = 10;
 
   // Getters
-  String get nom => _nom;
+  String get name => _name;
 
-  List<String> get livres => List.unmodifiable(_livres);
+  List<String> get books => List.unmodifiable(_books);
 
-  int get capaciteMax => _capaciteMax;
+  int get maxCapacity => _maxCapacity;
 
   // Getter calculé
-  bool get estPleine => _livres.length >= _capaciteMax;
+  bool get isFull => _books.length >= _maxCapacity;
 
   // Setter avec validation
-  set capaciteMax(int valeur) {
-    if (valeur <= 0) {
-      throw ArgumentError("La capacité maximale doit être strictement supérieure à 0.");
+  set maxCapacity(int value) {
+    if (value <= 0) {
+      throw ArgumentError("La capacité maximale doit être > 0");
     }
-    _capaciteMax = valeur;
+    _maxCapacity = value;
   }
 
   // Méthode pour ajouter un livre
-  void ajouterLivre(String livre) {
-    if (estPleine) {
-      print("Impossible d'ajouter le livre : la bibliothèque est pleine.");
+  void addBook(String book) {
+    if (isFull) {
+      print("Impossible d'ajouter le livre : bibliothèque pleine.");
       return;
     }
-    _livres.add(livre);
-    print("Livre ajouté : $livre");
+    _books.add(book);
+    print("Livre ajouté : $book");
   }
 
   // Méthode pour supprimer un livre
-  void supprimerLivre(String livre) {
-    if (_livres.remove(livre)) {
-      print("Livre supprimé : $livre");
+  void removeBook(String book) {
+    if (_books.remove(book)) {
+      print("Livre supprimé : $book");
     } else {
-      print("Livre introuvable : $livre");
+      print("Livre non trouvé : $book");
     }
   }
 
   // Méthode pour lister les livres
-  void listerLivres() {
-    if (_livres.isEmpty) {
+  void listBooks() {
+    if (_books.isEmpty) {
       print("Aucun livre dans la bibliothèque.");
     } else {
       print("Liste des livres :");
-      for (var livre in _livres) {
-        print("- $livre");
+      for (var book in _books) {
+        print("- $book");
       }
     }
   }
